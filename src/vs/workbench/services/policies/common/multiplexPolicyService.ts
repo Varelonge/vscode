@@ -58,4 +58,9 @@ export class MultiplexPolicyService extends AbstractPolicyService implements IPo
 			changed.add(key);
 		}
 	}
+
+	public override dispose(): void {
+		this.policyServices.forEach(service => service.dispose());
+		super.dispose();
+	}
 }

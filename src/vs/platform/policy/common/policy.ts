@@ -6,7 +6,7 @@
 import { IStringDictionary } from '../../../base/common/collections.js';
 import { Emitter, Event } from '../../../base/common/event.js';
 import { Iterable } from '../../../base/common/iterator.js';
-import { Disposable } from '../../../base/common/lifecycle.js';
+import { Disposable, IDisposable } from '../../../base/common/lifecycle.js';
 import { PolicyName } from '../../../base/common/policy.js';
 import { createDecorator } from '../../instantiation/common/instantiation.js';
 
@@ -15,7 +15,7 @@ export type PolicyDefinition = { type: 'string' | 'number' | 'boolean'; previewF
 
 export const IPolicyService = createDecorator<IPolicyService>('policy');
 
-export interface IPolicyService {
+export interface IPolicyService extends IDisposable {
 	readonly _serviceBrand: undefined;
 
 	readonly onDidChange: Event<readonly PolicyName[]>;
@@ -56,7 +56,7 @@ export abstract class AbstractPolicyService extends Disposable implements IPolic
 	protected abstract _updatePolicyDefinitions(policyDefinitions: IStringDictionary<PolicyDefinition>): Promise<void>;
 }
 
-export class NullPolicyService implements IPolicyService {
+export class NullPolicyService extends Disposable implements IPolicyService {
 	readonly _serviceBrand: undefined;
 	readonly onDidChange = Event.None;
 	async updatePolicyDefinitions() { return {}; }
