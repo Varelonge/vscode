@@ -11,6 +11,10 @@ import { SimpleDecoder, TSimpleDecoderToken } from '../simpleCodec/simpleDecoder
 import { PartialFrontMatterHeader, PartialFrontMatterStartMarker } from './parsers/frontMatterHeader.js';
 
 /**
+ * TODO: @legomushroom - add tests
+ */
+
+/**
  * Tokens produced by this decoder.
  */
 export type TMarkdownExtensionsToken = MarkdownExtensionsToken | TSimpleDecoderToken;
